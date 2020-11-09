@@ -3,6 +3,8 @@
     <ol>
         <li *ngFor="let item of equipmentItems">
             <!-- "Add to Cargo Hold" button goes here. -->
+            <button [class.active]="!disableButton" (click)="addItem(item)" [disabled]="cargoHoldFull(item)">Add to Cargo Hold</button>
+            <!-- need to figure out how to turn off active button styling when the hold is full-->
             {{item.name}}, {{item.mass}} kg
         </li>
     </ol>
@@ -14,9 +16,11 @@
     <h3>Cargo Hold: {{cargoHold.length}}/{{maxItems}} Spots Filled</h3>
     <ol>
         <li *ngFor="let equipment of cargoHold">{{equipment.name}}</li>
+
     </ol>
     <p>Mass in Hold: {{cargoMass}} kg</p>
-    <p>Mass Budget Remaining: {{<!-- Calculate mass remaining here. -->}} kg</p>
+    <p [class.nearMaxMass]="nearMaxMassWarning">Mass Budget Remaining: {{maximumAllowedMass-cargoMass}} kg</p>
     <!-- Add the "Empty Hold" button here. -->
+    <button (click)="emptyHold()">Empty Cargo Hold</button>
 </div>
 
