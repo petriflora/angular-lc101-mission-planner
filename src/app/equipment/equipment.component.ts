@@ -21,7 +21,7 @@ export class EquipmentComponent implements OnInit {
    cargoMass: number = 0;
    maximumAllowedMass: number = 2000;
    maxItems: number = 10;
-   disableButton: boolean = false
+   active: boolean = true
    nearMaxMassWarning: boolean = false
 
    constructor() { }
@@ -37,20 +37,19 @@ export class EquipmentComponent implements OnInit {
     return (this.cargoMass >= (this.maximumAllowedMass - 200));
    } 
 
-   cargoHoldFull(equipmentObject) {
+  cargoHoldFull(equipmentObject) {
     let item = equipmentObject;  
     if (this.cargoMass + item.mass > this.maximumAllowedMass) {
-      this.disableButton = true;
       return true
-      }
-      else if (this.cargoHold.length === this.maxItems) {
-        this.disableButton = true;
-        return true
-      }
-      else if (this.cargoMass >= this.maximumAllowedMass - 200) {
-        this.nearMaxMassWarning = true
-      }
-   }
+    }
+    else if (this.cargoHold.length === this.maxItems) {
+      return true
+    }
+    else if (this.cargoMass >= this.maximumAllowedMass - 200) {
+      this.nearMaxMassWarning = true
+      
+    }
+  }
 
     emptyHold() {
       this.cargoMass = 0;
